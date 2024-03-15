@@ -9,6 +9,7 @@ const Environment = {
 const currentEnvironment = Environment.DEV;
 let DATA_FOLDER_PATH = '';
 let DB_PATH = '';
+const INSTALLATION_PATH = path.join(os.homedir(), 'apps', 'todo_app');
 
 if (currentEnvironment !== Environment.PROD) {
     DATA_FOLDER_PATH = path.join(__dirname, 'data');
@@ -23,4 +24,5 @@ module.exports = {
     currentEnvironment,
     DATA_FOLDER_PATH,
     DB_PATH,
+    INSTALLATION_PATH,
 };
