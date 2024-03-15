@@ -2,6 +2,7 @@ const { BrowserWindow, ipcRenderer, contextBridge } = require('electron');
 
 contextBridge.exposeInMainWorld('data', {
     getTodos: () => ipcRenderer.invoke('getTodos'),
+    getVersion: () => ipcRenderer.invoke('getVersion'),
 });
 
 window.addEventListener('DOMContentLoaded', () => {

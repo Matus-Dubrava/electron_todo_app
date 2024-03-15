@@ -101,6 +101,7 @@ app.whenReady().then(async () => {
     }
 
     ipcMain.handle('getTodos', async () => await getTodos(DB_PATH));
+    ipcMain.handle('getVersion', () => version);
 
     createWindow();
 

@@ -1,5 +1,6 @@
 const init = async () => {
     const response = await window.data.getTodos();
+    await getVersion();
     renderData(response);
 };
 
@@ -30,6 +31,12 @@ function renderData(response) {
     } else {
         console.error(response.error);
     }
+}
+
+async function getVersion() {
+    const version = await window.data.getVersion();
+    const versionEl = document.getElementById('version');
+    versionEl.textContent = version;
 }
 
 const root = document.getElementById('main');

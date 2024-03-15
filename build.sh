@@ -22,7 +22,7 @@ npx electron-builder build --linux
 # set the environment value back to "dev"
 sed -i "s/const currentEnvironment = Environment.PROD;/const currentEnvironment = Environment.DEV;/g" config.js
 
-# create the target dir and copy the build artifact there
+# create the target dir and copy the build artifacts there
 mkdir -p ~/apps/todo_app
 cp -r ./dist/linux-unpacked/* ~/apps/todo_app
 cp ./dist/cli ~/apps/todo_app/cli
