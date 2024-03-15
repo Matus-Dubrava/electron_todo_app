@@ -1,26 +1,17 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs').promises;
 const path = require('node:path');
-const os = require('os');
 const {
     initDatabases,
     populateTablesWithTestData,
     getTodos,
 } = require('./src/app/utils');
-
-const environment = 'dev';
-console.log(`runing in environment: ${environment}...`);
-
-let DATA_FOLDER_PATH = '';
-let DB_PATH = '';
-
-if (environment !== 'prod') {
-    DATA_FOLDER_PATH = path.join(__dirname, 'data');
-    DB_PATH = path.join(DATA_FOLDER_PATH, 'todos.db');
-} else {
-    DATA_FOLDER_PATH = path.join(os.homedir(), '.data', 'todo_app');
-    DB_PATH = path.join(DATA_FOLDER_PATH, 'todos.db');
-}
+const {
+    currentEnvironment,
+    Environment,
+    DATA_FOLDER_PATH,
+    DB_PATH,
+} = require('./config');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -45,6 +36,8 @@ async function intializeDirs() {
 }
 
 app.whenReady().then(async () => {
+    console.log(`running in '${currentEnvironment}' environment...`);
+
     let error = await intializeDirs();
     if (error) {
         console.error(`failed to create folder: ${DATA_FOLDER_PATH}`);
@@ -60,11 +53,14 @@ app.whenReady().then(async () => {
         console.error(error);
         process.exit(1);
     }
-    const errors = await populateTablesWithTestData(DB_PATH);
-    if (errors.length) {
-        console.error(`opening: ${DB_PATH}`);
-        console.error(errors);
-        process.exit(1);
+
+    if (currentEnvironment !== Environment.PROD) {
+        const errors = await populateTablesWithTestData(DB_PATH);
+        if (errors.length) {
+            console.error(`opening: ${DB_PATH}`);
+            console.error(errors);
+            process.exit(1);
+        }
     }
 
     ipcMain.handle('getTodos', async () => await getTodos(DB_PATH));
