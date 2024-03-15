@@ -1,0 +1,47 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/client/styles/output.css">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div id="root">
+        <div id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen bg-neutral-700">
+            <button class="bg-red-400 hover:bg-red-800 text-white font-bold py-2 px-8 mt-4 rounded ml-14">Add Todo</button>
+        </div>
+        <div id="main" class="p-4 sm:ml-64">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                        Name 
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                        Text 
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                        Date Created 
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                        Date Modified 
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                        Finished 
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="todo-form-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="./src/client/renderer.js"></script>
+  </body>
+</html>

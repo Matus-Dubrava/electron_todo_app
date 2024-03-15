@@ -1,0 +1,6 @@
+appId: com.example.myapp
+productName: MyApp
+directories:
+    output: 'dist'
+linux:
+    target: AppImage
